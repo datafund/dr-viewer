@@ -6,7 +6,7 @@
   "description": "Lorem ipsum",
   "repository": {
     "type": "git",
-    "url": "https://github.com/datafund/consent/invitations"
+    "url": "https://github.com/datafund/dr-viewer.git"
   },
   "author": "Datafund <info@datafund.io> (https://datafund.io)",
   "license": "ISC",
