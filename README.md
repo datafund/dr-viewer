@@ -5,7 +5,7 @@ Display a consent receipt (CR) JSON.
 ## Quick Use :running_woman:‍
 
 ```sh
-import ConsentViewer from 'consent-viewer';
+import {ConsentViewer ad ConsentViewer} from 'consent-viewer';
 
 <ConsentViewer data={{"test": "lorem ipsum"}} />
 ```

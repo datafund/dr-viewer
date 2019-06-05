@@ -1,12 +1,12 @@
 {
-  "name": "consent-viewer",
+  "name": "@datafund/consent-viewer",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "description": "Lorem ipsum",
   "repository": {
     "type": "git",
-    "url": "https://github.com/datafund/dr-viewer.git"
+    "url": "git+https://github.com/datafund/dr-viewer.git"
   },
   "author": "Datafund <info@datafund.io> (https://datafund.io)",
   "license": "ISC",
@@ -44,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/datafund/dr-viewer/issues"
+  },
+  "homepage": "https://github.com/datafund/dr-viewer#readme"
 }
