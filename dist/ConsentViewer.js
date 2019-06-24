@@ -7,9 +7,9 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _reactJsonToHtml = require("react-json-to-html");
-
 var _lodash = _interopRequireDefault(require("lodash"));
+
+var _jquery = _interopRequireDefault(require("jquery"));
 
 require("./ConsentViewer.css");
 
@@ -27,13 +27,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+window.jQuery = _jquery.default;
+window.$ = _jquery.default;
+global.jQuery = _jquery.default;
 
 var ConsentViewer =
 /*#__PURE__*/
@@ -41,24 +45,82 @@ function (_Component) {
   _inherits(ConsentViewer, _Component);
 
   function ConsentViewer(props) {
-    var _this;
+    var _this2;
 
     _classCallCheck(this, ConsentViewer);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ConsentViewer).call(this, props));
-    _this.state = {
-      data: _this.props.data ? _this.props.data : {}
+    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(ConsentViewer).call(this, props));
+    _this2.state = {
+      data: _this2.props.data ? _this2.props.data : {},
+      htmlData: ""
     };
-    console.log(_this.props);
-    console.log(props);
-    return _this;
+    _this2.objectToTable = _this2.objectToTable.bind(_assertThisInitialized(_this2));
+    _this2.renderHtmlTable = _this2.renderHtmlTable.bind(_assertThisInitialized(_this2));
+    return _this2;
   }
 
   _createClass(ConsentViewer, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      //this.objectToTable(this.state.data);
+      this.renderHtmlTable();
+    }
+  }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps, nextContext) {
       this.setState({
         data: nextProps.data
+      });
+      this.renderHtmlTable();
+    }
+  }, {
+    key: "objectToTable",
+    value: function objectToTable(obj) {
+      var table = (0, _jquery.default)('<table>').append('<tbody>');
+
+      for (var key in obj) {
+        var tr = (0, _jquery.default)('<tr>');
+        var th = (0, _jquery.default)('<th>').append(key);
+        var td = (0, _jquery.default)('<td>');
+        var value = void 0;
+
+        if (_typeof(obj[key]) == 'object') {
+          if (obj[key]) {
+            value = this.objectToTable(obj[key]);
+          } else {
+            value = '<span class="null">null</span>';
+          }
+        } else if (typeof obj[key] == 'boolean') {
+          var str = obj[key] ? 'true' : 'false';
+          value = '<span class="boolean">' + str + '</span>';
+        } else if (typeof obj[key] == 'string') {
+          value = '<span class="string">"' + obj[key] + '"</span>';
+        } else {
+          value = obj[key].valueOf();
+        }
+
+        td.append(value);
+        tr.append(th).append(td);
+        table.append(tr);
+      }
+
+      return table;
+    }
+  }, {
+    key: "renderHtmlTable",
+    value: function renderHtmlTable() {
+      var _this = this;
+
+      var value = "";
+
+      try {
+        value = _this.objectToTable(this.state.data);
+      } catch (e) {
+        value = '<pre>' + e + '</pre>';
+      }
+
+      _this.setState({
+        htmlData: (0, _jquery.default)(value).html()
       });
     }
   }, {
@@ -66,9 +128,15 @@ function (_Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: "consentViewerContainer"
-      }, !_lodash.default.isEmpty(this.state.data) && _react.default.createElement(_reactJsonToHtml.JsonTable, {
-        json: this.state.data
-      }), _lodash.default.isEmpty(this.state.data) && _react.default.createElement("em", null, "Cosent Recepeit data not available."));
+      }, this.state.htmlData && _react.default.createElement("div", {
+        className: "table-responsive"
+      }, _react.default.createElement("table", {
+        className: "table",
+        id: "container",
+        dangerouslySetInnerHTML: {
+          __html: this.state.htmlData
+        }
+      })), _lodash.default.isEmpty(this.state.data) && _react.default.createElement("em", null, "Cosent Recepeit data not available."));
     }
   }]);
 
