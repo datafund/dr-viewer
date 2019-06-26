@@ -143,4 +143,5 @@ function (_Component) {
   return ConsentViewer;
 }(_react.Component);
 
-exports.default = ConsentViewer;
+var _default = ConsentViewer;
+exports.default = _default;

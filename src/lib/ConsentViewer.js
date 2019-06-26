@@ -1,7 +1,7 @@
 /**
  * Datafund Consent generator & viewer
  * Licensed under the MIT license
- * Created by Markus Zevnik, Tadej Fius, �rt Ahlin
+ * Created by Markus Zevnik, Tadej Fius, Črt Ahlin
  */
 
 import React, {Component} from "react";
@@ -13,7 +13,7 @@ window.jQuery = $;
 window.$ = $;
 global.jQuery = $;
 
-export default class ConsentViewer extends Component {
+class ConsentViewer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -106,3 +106,5 @@ export default class ConsentViewer extends Component {
     }
 
 }
+
+export default ConsentViewer;
