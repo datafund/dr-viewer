@@ -12,7 +12,7 @@ Download package using [npm](https://www.npmjs.com/):
 
 <br/>Import package to your React app:
 ```javascript
-import {ConsentViewer as ConsentViewer} from 'consent-viewer';
+import { ConsentViewer } from 'consent-viewer';
 ```
 
 <br/>Prepare Consent Receipt data:
