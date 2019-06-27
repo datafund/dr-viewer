@@ -1,9 +1,9 @@
 {
   "name": "@datafund/consent-viewer",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "description": "Lorem ipsum",
+  "description": "React plugin for displaying human-readable Consent Receipt (CR) JSON.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/datafund/dr-viewer.git"
